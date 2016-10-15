@@ -122,6 +122,11 @@ public class MagicWindow {
 			glViewport(0, 0, width, height);
 			glClearColor(this.clearColor.r, this.clearColor.g, this.clearColor.b, this.clearColor.a);
 			glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			synchronized (lock) {
 				if (!destroyed) {
 					glfwSwapBuffers(window);
