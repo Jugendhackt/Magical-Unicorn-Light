@@ -59,7 +59,7 @@ public class DMXSender extends BaseNetworkSender{
 		
 		for (int i = 0; i < raw.length - 1; i++) {
 			if (i < data.getData().length + data.getOffset()) {
-				raw[i+1] = data.getData()[data.getOffset() + i];
+				raw[i] = data.getData()[data.getOffset() + i];
 			}
 		}
 		

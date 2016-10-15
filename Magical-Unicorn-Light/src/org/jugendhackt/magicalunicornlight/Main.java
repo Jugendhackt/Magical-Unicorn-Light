@@ -30,14 +30,14 @@ public class Main {
 //			frame.setChannelValue(101, 255);
 //			int i = 0;
 			while (true) {
-				frame.setChannelValueDouble(1, rand.nextDouble());
-				frame.setChannelValueDouble(2, rand.nextDouble());
-				frame.setChannelValueDouble(3, rand.nextDouble());
+				frame.setChannelValueDouble(10, 1);
+				frame.setChannelValueDouble(11, 0);
+				frame.setChannelValueDouble(12, 1);
 				output.sendFrame(frame);
 				
-				frame.setChannelValueByte(101, frame.getChannelValue(1));
-				frame.setChannelValueByte(102, frame.getChannelValue(2));
-				frame.setChannelValueByte(103, frame.getChannelValue(3));
+				frame.setChannelValueDouble(101, 1);
+				frame.setChannelValueDouble(102, 0);
+				frame.setChannelValueDouble(103, 1);
 				
 				dmxOutput.sendFrame(frame);
 				
