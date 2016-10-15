@@ -2,8 +2,7 @@ package org.jugendhackt.magicalunicornlight;
 
 import java.util.Random;
 
-import org.jugendhackt.magicalunicornlight.IO.dmx.BufferedSerialDMXOutput;
-import org.jugendhackt.magicalunicornlight.IO.dmx.SerialDMXInterfaces;
+import org.jugendhackt.magicalunicornlight.IO.dmx.BufferedDMXSender;
 import org.jugendhackt.magicalunicornlight.IO.magicunicorndisplay.MagicSender;
 import org.jugendhackt.magicalunicornlight.frames.DMXFrame;
 import org.jugendhackt.magicalunicornlight.frames.MagicFrame;
@@ -11,7 +10,7 @@ import org.jugendhackt.magicalunicornlight.frames.MagicFrame;
 public class Main {
 
 	public static void main(String[] args) {
-		testMagicSender ();
+		testDMX2 ();
 		
 	}
 	
@@ -40,35 +39,30 @@ public class Main {
 		}
 	}
 	
-	public static void testDMX () {
-		BufferedSerialDMXOutput output = new BufferedSerialDMXOutput(SerialDMXInterfaces.DMX4ALL_NANODMX, "/dev/ttyS81");
+	public static void testDMX2 () {
+		Random rand = new Random();
 		
+		BufferedDMXSender output = new BufferedDMXSender ();
 		try {
 			output.openPort();
-		
-			byte[] data = new byte[512];
-			
-			for (int i = 0; i < 512; i++) {
-				data[i] = (byte)255;
-			}
-			
+			output.setAddress("127.0.0.1");
+			output.setPort(5555);
 			DMXFrame frame = new DMXFrame ();
-			frame.setData(data);
 //			frame.setChannelValue(101, 255);
-			int i = 0;
-			while (i < 3) {
+//			int i = 0;
+			while (true) {
+				frame.setChannelValueDouble(101, rand.nextDouble());
+				frame.setChannelValueDouble(102, rand.nextDouble());
+				frame.setChannelValueDouble(103, rand.nextDouble());
 				output.sendFrame(frame);
-				Thread.sleep(1000);
-				System.out.println("Sending ...");
-				i++;
+				Thread.sleep(500);
+				System.out.println("Sending to " + output.getAddress().toString() + ":" + output.getPort());
+//				i++;
 			}
-		
-			System.out.println("Finished ...");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			output.closePort();
 		}
 	}
-
 }
