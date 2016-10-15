@@ -5,6 +5,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.SourceDataLine;
 
 public class MusikImport {
+	int k = 0;
+	static double[] mainvolume = new double[512];
+	static double[] maxvolume = new double[512];
 	static void musikImport() {
 		
 	FileChooser chooser = new FileChooser();
@@ -35,8 +38,8 @@ public class MusikImport {
 	        }
 	        System.out.println("Ihr Veggie-Burger ist fertig!");
     	        Complex[] ergebnis = FFT.fft(komplex);
-    	        System.out.println(ergebnis[0] + "/" + ergebnis[1] + "/" + ergebnis[2] + "/" + ergebnis[3] + "/" + ergebnis[4] + "/");
-    	        
+    	        //System.out.println(ergebnis[0].abs() + "/" + ergebnis[1].abs() + "/" + ergebnis[2].abs() + "/" + ergebnis[3].abs() + "/" + ergebnis[4].abs() + "/");
+    	        taktFinder(ergebnis);
 	    }
 	    line.drain();
 	    line.stop();
@@ -45,6 +48,28 @@ public class MusikImport {
 	    e.printStackTrace();
 	}
 	}
+	
+	static void taktFinder(Complex[] volume) {
+	
+		for(int i = 0;i < 512;i++){
+			if(i == 0){
+				System.out.println("Volume: " + volume[i].abs());	
+			}
+			
+			
+			mainvolume[i] = (0.995 * mainvolume[i]) + (0.005 * volume[i].abs());
+			if(volume[i].abs() > maxvolume[i]){
+				maxvolume[i] = volume[i].abs();
+			}
+			if(i == 0){
+				System.out.println("MainVColume: " + mainvolume[i]);
+				System.out.println("MaxVolume: " + maxvolume[i]);
+			}
+	
+			
+		}
+	}
+	
 	public static void main(String[] args) {
 		musikImport();
 		System.out.println("Ihr Veggie-Burger ist fertig!");
