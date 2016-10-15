@@ -18,6 +18,8 @@ public class MusikImport {
 	    line.open(input.getFormat());
 	    line.start();
 	    byte[] buffer = new byte[1024];
+	    Complex[] komplex = new Complex[512];
+	  
 	    int count;
 	    while((count = input.read(buffer, 0, 1024)) != -1) {
 	        line.write(buffer, 0, count);
@@ -29,8 +31,9 @@ public class MusikImport {
 		        int f = buffer[ii];
 	        	int gesamt = e + (256 * f);
 	        	System.out.println("" + (e + (256 * f)));
+	        	komplex[i] = new Complex((double) gesamt,0);
 	        }
-	        
+    	        Complex[] ergebnis = FFT.fft(komplex);
 	    }
 	    line.drain();
 	    line.stop();
