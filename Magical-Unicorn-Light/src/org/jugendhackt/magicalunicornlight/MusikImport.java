@@ -19,7 +19,9 @@ public class MusikImport {
 	    int count;
 	    while((count = input.read(buffer, 0, 1024)) != -1) {
 	        line.write(buffer, 0, count);
-	        System.out.println("" + buffer);
+	        int e = buffer[0] & 0xFF;
+	        int f = buffer[1] & 0xFF;
+	        System.out.println("" + (e + (256 * f)));
 	    }
 	    line.drain();
 	    line.stop();
