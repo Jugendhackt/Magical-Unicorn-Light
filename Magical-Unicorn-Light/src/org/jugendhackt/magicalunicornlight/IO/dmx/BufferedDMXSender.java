@@ -3,11 +3,7 @@ package org.jugendhackt.magicalunicornlight.IO.dmx;
 import org.jugendhackt.magicalunicornlight.frames.DMXFrame;
 import org.jugendhackt.magicalunicornlight.frames.IFrame;
 
-/**
- * @author eric
- * Buffered Writer to SerialPort
- */
-public class BufferedSerialDMXOutput extends SerialDMXOutput{
+public class BufferedDMXSender extends DMXSender{
 	/**
 	 * Data buffer for repeated sending by senderThread
 	 */
@@ -22,28 +18,57 @@ public class BufferedSerialDMXOutput extends SerialDMXOutput{
 	 */
 	private int sendTime;
 	
+	
+	/**
+	 * Constructor.
+	 * Default Address; 127.0.0.1
+	 * Default Port: 1337
+	 */
+	public BufferedDMXSender () {
+		super ();
+		bufferedData = DMXFrame.EMPTY;
+		this.sendTime = 50; // ms
+	}
+	
 	/**
 	 * Constructor
-	 * @param inter - DMX Interface to prepare the data for
-	 * @param portName - Name of the Serial port
+	 * @param port - Target port (default: 1337)
 	 */
-	public BufferedSerialDMXOutput(SerialDMXInterfaces inter, String portName) {
-		super(inter, portName);
+	public BufferedDMXSender (int port) {
+		super (port);
 		bufferedData = DMXFrame.EMPTY;
-		sendTime = 50; // ms
+		this.sendTime = 50; // ms
 	}
 
 	/**
-	 * @param inter - DMX Interface to prepare the data for
-	 * @param portName - Name of the Serial port
-	 * @param sendTime - Time between sending data in ms. (Default: 50 ms)
+	 * Constructor
+	 * @param address - The address to send to (default: 127.0.0.1)
 	 */
-	public BufferedSerialDMXOutput(SerialDMXInterfaces inter, String portName, int sendTime) {
-		super(inter, portName);
+	public BufferedDMXSender (String address) {
+		super (address);
 		bufferedData = DMXFrame.EMPTY;
-		this.sendTime = sendTime; // ms
+		this.sendTime = 50; // ms
 	}
 	
+	/**
+	 * Constructor
+	 * @param address - The address to send to (default: 127.0.0.1)
+	 * @param port - Target port (default: 1337)
+	 */
+	public BufferedDMXSender (String address, int port) {
+		super (address, port);
+		bufferedData = DMXFrame.EMPTY;
+		this.sendTime = 50; // ms	
+	}
+	
+	public int getSendTime() {
+		return sendTime;
+	}
+
+	public void setSendTime(int sendTime) {
+		this.sendTime = sendTime;
+	}
+
 	/* (non-Javadoc)
 	 * @see org.jugendhackt.magicalunicornlight.IO.dmx.SerialDMXOutput#openPort()
 	 */

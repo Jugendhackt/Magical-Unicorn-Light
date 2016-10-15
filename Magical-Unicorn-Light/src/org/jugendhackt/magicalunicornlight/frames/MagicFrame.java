@@ -191,6 +191,12 @@ public class MagicFrame implements IFrame{
 		}
 	}
 	
+	/**
+	 * Sets the Color to send
+	 * @param r - Red component. Double between 0 and 1
+	 * @param g - Green component. Double between 0 and 1
+	 * @param b - Blue component. Double between 0 and 1
+	 */
 	public void setColor (double r, double g, double b) {
 		setChannelValueDouble (0, r);
 		setChannelValueDouble (1, g);

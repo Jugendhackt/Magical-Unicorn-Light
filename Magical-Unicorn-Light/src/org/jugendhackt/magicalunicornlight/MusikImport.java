@@ -36,7 +36,6 @@ public class MusikImport {
 	        	//System.out.println("" + (e + (256 * f)));
 	        	komplex[i] = new Complex((double) gesamt,0);
 	        }
-	        System.out.println("Ihr Veggie-Burger ist fertig!");
     	        Complex[] ergebnis = FFT.fft(komplex);
     	        //System.out.println(ergebnis[0].abs() + "/" + ergebnis[1].abs() + "/" + ergebnis[2].abs() + "/" + ergebnis[3].abs() + "/" + ergebnis[4].abs() + "/");
     	        taktFinder(ergebnis);
@@ -72,7 +71,5 @@ public class MusikImport {
 	
 	public static void main(String[] args) {
 		musikImport();
-		System.out.println("Ihr Veggie-Burger ist fertig!");
-		System.out.println("Jetzt kommt die Cola... (und eine menge schlechte Wortwitze und zitate)");
 	}
 }

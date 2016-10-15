@@ -107,12 +107,12 @@ package org.jugendhackt.magicalunicornlight;
 
 	    // display an array of Complex numbers to standard output
 	    public static void show(Complex[] x, String title) {
-	        StdOut.println(title);
-	        StdOut.println("-------------------");
+	    	System.out.println(title);
+	    	System.out.println("-------------------");
 	        for (int i = 0; i < x.length; i++) {
-	            StdOut.println(x[i]);
+	        	System.out.println(x[i]);
 	        }
-	        StdOut.println();
+	        System.out.println();
 	    }
 
 
