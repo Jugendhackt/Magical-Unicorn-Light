@@ -7,7 +7,7 @@ import org.jugendhackt.magicalunicornlight.frames.DMXFrame;
 public class Main {
 
 	public static void main(String[] args) {
-		
+		testDMX ();
 		
 	}
 	

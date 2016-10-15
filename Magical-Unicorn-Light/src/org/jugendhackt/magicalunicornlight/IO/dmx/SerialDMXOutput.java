@@ -3,13 +3,15 @@ package org.jugendhackt.magicalunicornlight.IO.dmx;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jugendhackt.magicalunicornlight.IO.ISender;
 import org.jugendhackt.magicalunicornlight.frames.DMXFrame;
+import org.jugendhackt.magicalunicornlight.frames.IFrame;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.UnsupportedCommOperationException;
 
-public class SerialDMXOutput {
+public class SerialDMXOutput implements ISender {
 	/**
 	 * name of the serial port
 	 */
@@ -44,8 +46,8 @@ public class SerialDMXOutput {
 		this.portName = portName;
 	}
 	
-	/**
-	 * Opens Serial port. prints Exception if it fails
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.IO.ISender#openPort()
 	 */
 	public void openPort () {
 		try{
@@ -71,14 +73,14 @@ public class SerialDMXOutput {
 		}
 	}
 	
-	/**
-	 * Closes serial port
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.IO.ISender#closePort()
 	 */
 	public void closePort () {
 		port.close();
 	}
 	
-	private byte[] prepareFrameData (DMXFrame frame) {
+	private byte[] prepareFrameData (IFrame frame) {
 		byte[] frameData = overrideData(frame.getData(), DMXFrame.EMPTY.getData());
 		byte[] data = new byte[frame.getData().length + frame.getOffset() + inter.getHeadderSize() + inter.getFooterSize()];
 		
@@ -103,23 +105,25 @@ public class SerialDMXOutput {
 		return in;
 	}
 	
-	/**
-	 * 
-	 * @param data
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.IO.ISender#sendFrame(org.jugendhackt.magicalunicornlight.frames.IFrame)
 	 */
-	public void sendFrame (DMXFrame data){
+	public void sendFrame (IFrame data){
 		if(dmx_out==null){
 			System.out.println("IOError when sending DMX data: dmx_out is not open");
 			return;
 		}
 		try{
 			dmx_out.write(prepareFrameData(data));
-			port.sendBreak(0);
+			port.sendBreak(10);
 		}catch(IOException ex){
 			System.out.println("IOError when sending DMX data: "+ex.getLocalizedMessage());
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.IO.ISender#isOpen()
+	 */
 	public boolean isOpen () {
 		return isOpen;
 	}
