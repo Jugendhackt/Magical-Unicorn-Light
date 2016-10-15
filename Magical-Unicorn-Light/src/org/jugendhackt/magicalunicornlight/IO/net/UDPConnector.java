@@ -4,20 +4,39 @@ import java.io.*;
 import java.net.*;
 
 public class UDPConnector {
+	/**
+	 * Port to send from
+	 */
 	private int port = -1;
 
+	/**
+	 * Length of Packets
+	 */
 	private int packetSize = 512;
+	/**
+	 * UDP Socket
+	 */
 	private DatagramSocket serverSocket;
 
+	/**
+	 * Constructor
+	 */
 	public UDPConnector() {
 		init();
 	}
 
+	/**
+	 * @param port - Port to send from. -1 = next free port
+	 */
 	public UDPConnector(int port) {
 		this.port = port;
 		init();
 	}
 
+	/**
+	 * @param port - Port to send from
+	 * @param packetSize - Length of Packets
+	 */
 	public UDPConnector(int port, int packetSize) {
 		this.port = port;
 		this.packetSize = packetSize;
@@ -39,14 +58,23 @@ public class UDPConnector {
 		}
 	}
 
+	/**
+	 * @return returns port to send from
+	 */
 	public int getPort() {
 		return port;
 	}
 
+	/**
+	 * @return length of packets
+	 */
 	public int getPacketSize() {
 		return packetSize;
 	}
 
+	/**
+	 * @return IP address of this computer
+	 */
 	public InetAddress getIP () {
 		try {
 			return InetAddress.getByName("localhost");
@@ -56,9 +84,13 @@ public class UDPConnector {
 		}
 	}
 
-	public void send (DatagramPacket response) {
+	/**
+	 * Send datagramm packet
+	 * @param data - packet to send
+	 */
+	public void send (DatagramPacket data) {
 		try {
-			serverSocket.send(response);
+			serverSocket.send(data);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,7 @@
 package org.jugendhackt.magicalunicornlight.IO.dmx;
 
 import org.jugendhackt.magicalunicornlight.frames.DMXFrame;
+import org.jugendhackt.magicalunicornlight.frames.IFrame;
 
 /**
  * @author eric
@@ -10,7 +11,7 @@ public class BufferedSerialDMXOutput extends SerialDMXOutput{
 	/**
 	 * Data buffer for repeated sending by senderThread
 	 */
-	protected volatile DMXFrame bufferedData;
+	protected volatile IFrame bufferedData;
 	
 	/**
 	 * Thread sending buffered data in specified intervall
@@ -65,7 +66,7 @@ public class BufferedSerialDMXOutput extends SerialDMXOutput{
 	 * @see org.jugendhackt.magicalunicornlight.IO.dmx.SerialDMXOutput#sendFrame(org.jugendhackt.magicalunicornlight.frames.DMXFrame)
 	 */
 	@Override
-	public void sendFrame (DMXFrame data){
+	public void sendFrame (IFrame data){
 		this.bufferedData = data;
 	}
 	
@@ -82,7 +83,7 @@ public class BufferedSerialDMXOutput extends SerialDMXOutput{
 		}
 	}
 	
-	private void send (DMXFrame data) {
+	private void send (IFrame data) {
 		super.sendFrame(data);
 	}
 	
