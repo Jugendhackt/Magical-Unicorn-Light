@@ -4,93 +4,119 @@ import java.io.*;
 import java.net.*;
 
 public class UDPConnector {
-	/**
-	 * Port to send from
-	 */
+	
 	private int port = -1;
-
-	/**
-	 * Length of Packets
-	 */
+	
 	private int packetSize = 512;
-	/**
-	 * UDP Socket
-	 */
 	private DatagramSocket serverSocket;
-
-	/**
-	 * Constructor
-	 */
+	
+	private byte[] receiveData;
+	
+	private volatile boolean isRunning;
+	private Thread serverThread;
+	
 	public UDPConnector() {
-		init();
 	}
-
-	/**
-	 * @param port - Port to send from. -1 = next free port
-	 */
+	
 	public UDPConnector(int port) {
 		this.port = port;
-		init();
 	}
 
-	/**
-	 * @param port - Port to send from
-	 * @param packetSize - Length of Packets
-	 */
 	public UDPConnector(int port, int packetSize) {
 		this.port = port;
 		this.packetSize = packetSize;
-		init();
 	}
 
-	private void init () {
-		try {
-			if (port == -1) {
-
-				serverSocket = new DatagramSocket ();
-
-			} else {
-				serverSocket = new DatagramSocket (port);
-			}
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * @return returns port to send from
-	 */
 	public int getPort() {
 		return port;
 	}
 
-	/**
-	 * @return length of packets
-	 */
+	public void setPort(int port) {
+		this.port = port;
+	}
+
 	public int getPacketSize() {
 		return packetSize;
 	}
 
-	/**
-	 * @return IP address of this computer
-	 */
+	public void setPacketSize(int packetSize) {
+		this.packetSize = packetSize;
+	}
+
 	public InetAddress getIP () {
 		try {
-			return InetAddress.getByName("localhost");
+			return InetAddress.getByName("127.0.0.1");
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	/**
-	 * Send datagramm packet
-	 * @param data - packet to send
-	 */
-	public void send (DatagramPacket data) {
+	public void start () {
 		try {
-			serverSocket.send(data);
+			if (port == -1) {
+				serverSocket = new DatagramSocket ();
+			} else {
+				serverSocket = new DatagramSocket (port);
+			}
+			receiveData = new byte[packetSize];
+			isRunning = true;
+			serverThread = new Thread(new Runnable() {
+				public void run() {
+					serverLoop ();
+				}
+			});
+			serverThread.start();
+		} catch (SocketException e) {
+			e.printStackTrace();
+			isRunning = false;
+		} finally {
+//			this.stop();
+		}
+		
+	}
+	
+	public void stop () {
+		isRunning = false;
+		if (serverThread != null && serverThread.isAlive()) {
+			serverThread.interrupt();;
+		}
+		System.out.println("Server Stopped");
+	}
+	
+	public void restart () {
+		this.stop();
+		this.start();
+	}
+	
+	private void serverLoop () {
+		while (true) {
+			if (!isRunning) {
+				return;
+			}
+			
+			System.out.println("Server running");
+			
+			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            try {
+				serverSocket.receive(receivePacket);
+				System.out.println("Data recieved from " + receivePacket.getAddress().toString());
+				onPacketReceived (receivePacket);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+
+	
+	public void onPacketReceived (DatagramPacket packet) {
+
+	}
+
+	public void respond (DatagramPacket response) {
+		try {
+			serverSocket.send(response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
