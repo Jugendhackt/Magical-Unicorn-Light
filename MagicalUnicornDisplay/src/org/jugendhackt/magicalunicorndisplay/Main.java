@@ -15,5 +15,6 @@ public class Main {
 	private static void openWin (int mon) {
 		MagicWindow mwin = new MagicWindow (mon); // Create Window
 		mwin.run();
+		System.exit(0);
 	}
 }
