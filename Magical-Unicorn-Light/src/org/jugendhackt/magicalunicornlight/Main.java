@@ -21,7 +21,7 @@ public class Main {
 		MagicSender output = new MagicSender ();
 		try {
 			output.openPort();
-			output.setAddress("100.100.246.62");
+			output.setAddress("100.100.219.84");
 			output.setPort(1337);
 			MagicFrame frame = new MagicFrame ();
 //			frame.setChannelValue(101, 255);
