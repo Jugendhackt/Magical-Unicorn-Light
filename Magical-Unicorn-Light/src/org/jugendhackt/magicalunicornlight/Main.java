@@ -10,7 +10,7 @@ import org.jugendhackt.magicalunicornlight.frames.MagicFrame;
 public class Main {
 
 	public static void main(String[] args) {
-		test ();
+		testMagicSender ();
 	}
 	
 	public static void test () {
@@ -61,7 +61,7 @@ public class Main {
 		MagicSender output = new MagicSender ();
 		try {
 			output.openPort();
-			output.setAddress("100.100.246.62");
+			output.setAddress("127.0.0.1");
 			output.setPort(1337);
 			DMXFrame frame = new DMXFrame ();
 //			frame.setChannelValue(101, 255);

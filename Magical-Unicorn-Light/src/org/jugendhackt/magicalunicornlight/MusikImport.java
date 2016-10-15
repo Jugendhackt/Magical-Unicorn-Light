@@ -1,3 +1,4 @@
+
 package org.jugendhackt.magicalunicornlight;
 import java.io.File;
 import javax.sound.sampled.AudioInputStream;
@@ -6,8 +7,10 @@ import javax.sound.sampled.SourceDataLine;
 
 public class MusikImport {
 	int k = 0;
+	static int taktfrequenz = 0;
 	static double[] mainvolume = new double[512];
 	static double[] maxvolume = new double[512];
+	static double[] lowHighDifferenz = new double[512];
 	static void musikImport() {
 		
 	FileChooser chooser = new FileChooser();
@@ -51,7 +54,7 @@ public class MusikImport {
 	static void taktFinder(Complex[] volume) {
 	
 		for(int i = 0;i < 512;i++){
-			if(i == 0){
+			if(i == 512){
 				System.out.println("Volume: " + volume[i].abs());	
 			}
 			
@@ -60,10 +63,16 @@ public class MusikImport {
 			if(volume[i].abs() > maxvolume[i]){
 				maxvolume[i] = volume[i].abs();
 			}
-			if(i == 0){
+			lowHighDifferenz[i] = ((0.995 * lowHighDifferenz[i]) + (0.005 * (maxvolume[i] - mainvolume[i])));
+			if(lowHighDifferenz[i] > lowHighDifferenz[taktfrequenz]){
+				taktfrequenz = i;
+			}
+			if(i == 512){
 				System.out.println("MainVColume: " + mainvolume[i]);
 				System.out.println("MaxVolume: " + maxvolume[i]);
+				System.out.println("Low-High-Differenz: " + lowHighDifferenz[i]);
 			}
+			System.out.println("Taktfrequenz: " + taktfrequenz);
 	
 			
 		}
