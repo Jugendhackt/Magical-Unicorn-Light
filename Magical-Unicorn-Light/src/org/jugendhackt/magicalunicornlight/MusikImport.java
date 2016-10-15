@@ -30,10 +30,13 @@ public class MusikImport {
 	        	int e = buffer[i] & 0xFF;
 		        int f = buffer[ii];
 	        	int gesamt = e + (256 * f);
-	        	System.out.println("" + (e + (256 * f)));
+	        	//System.out.println("" + (e + (256 * f)));
 	        	komplex[i] = new Complex((double) gesamt,0);
 	        }
+	        System.out.println("Ihr Veggie-Burger ist fertig!");
     	        Complex[] ergebnis = FFT.fft(komplex);
+    	        System.out.println(ergebnis[0] + "/" + ergebnis[1] + "/" + ergebnis[2] + "/" + ergebnis[3] + "/" + ergebnis[4] + "/");
+    	        
 	    }
 	    line.drain();
 	    line.stop();
