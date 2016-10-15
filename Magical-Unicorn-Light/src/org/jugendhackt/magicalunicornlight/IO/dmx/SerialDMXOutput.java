@@ -10,19 +10,43 @@ import gnu.io.SerialPort;
 import gnu.io.UnsupportedCommOperationException;
 
 public class SerialDMXOutput {
+	/**
+	 * name of the serial port
+	 */
 	protected String portName;
+	/**
+	 * Target serial interface
+	 */
 	protected SerialDMXInterfaces inter;
 	
+	/**
+	 * Serial port for reading and writing
+	 */
 	protected SerialPort port=null;
+	/**
+	 * OutputStream for writing to the port
+	 */
 	protected OutputStream dmx_out=null;
 	
+	/**
+	 * true if port is open
+	 */
 	protected boolean isOpen;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param inter - Target Serial interface
+	 * @param portName - Name of Serialport
+	 */
 	public SerialDMXOutput (SerialDMXInterfaces inter, String portName) {
 		this.inter = inter;
 		this.portName = portName;
 	}
 	
+	/**
+	 * Opens Serial port. prints Exception if it fails
+	 */
 	public void openPort () {
 		try{
 			CommPortIdentifier portID = CommPortIdentifier.getPortIdentifier("/dev/ttyS81");
@@ -47,11 +71,14 @@ public class SerialDMXOutput {
 		}
 	}
 	
+	/**
+	 * Closes serial port
+	 */
 	public void closePort () {
 		port.close();
 	}
 	
-	byte[] prepareFrameData (DMXFrame frame) {
+	private byte[] prepareFrameData (DMXFrame frame) {
 		byte[] frameData = overrideData(frame.getData(), DMXFrame.EMPTY.getData());
 		byte[] data = new byte[frame.getData().length + frame.getOffset() + inter.getHeadderSize() + inter.getFooterSize()];
 		
@@ -63,7 +90,7 @@ public class SerialDMXOutput {
 		return data;
 	}
 	
-	byte[] overrideData (byte[] in, byte[] data) {
+	private byte[] overrideData (byte[] in, byte[] data) {
 		for (int i = 0; i < data.length; i++) {
 			if (i >= in.length) {
 				break;
@@ -76,6 +103,10 @@ public class SerialDMXOutput {
 		return in;
 	}
 	
+	/**
+	 * 
+	 * @param data
+	 */
 	public void sendFrame (DMXFrame data){
 		if(dmx_out==null){
 			System.out.println("IOError when sending DMX data: dmx_out is not open");
