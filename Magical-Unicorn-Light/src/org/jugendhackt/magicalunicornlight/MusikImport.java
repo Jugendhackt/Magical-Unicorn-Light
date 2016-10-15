@@ -6,8 +6,12 @@ import javax.sound.sampled.SourceDataLine;
 
 public class MusikImport {
 	static void musikImport() {
+		
+	FileChooser chooser = new FileChooser();
+	String filePath = chooser.popupFileLocation();
 	try {
-	    AudioInputStream input = AudioSystem.getAudioInputStream(new File("/home/jh/jh2016/Musik/Everlasting.wav"));
+		
+	    AudioInputStream input = AudioSystem.getAudioInputStream(new File(filePath));
 	    SourceDataLine line = AudioSystem.getSourceDataLine(input.getFormat());
 	    line.open(input.getFormat());
 	    line.start();
