@@ -12,6 +12,8 @@ public class MusikImport {
 	try {
 		
 	    AudioInputStream input = AudioSystem.getAudioInputStream(new File(filePath));
+		
+		System.out.println(input.getFormat().toString());
 	    SourceDataLine line = AudioSystem.getSourceDataLine(input.getFormat());
 	    line.open(input.getFormat());
 	    line.start();
@@ -20,8 +22,8 @@ public class MusikImport {
 	    while((count = input.read(buffer, 0, 1024)) != -1) {
 	        line.write(buffer, 0, count);
 	        int e = buffer[0] & 0xFF;
-	        int f = buffer[1] & 0xFF;
-	        System.out.println("" + (e + (256 * f)));
+	        int f = buffer[1];
+	        //System.out.println("" + (e + (256 * f)));
 	    }
 	    line.drain();
 	    line.stop();
