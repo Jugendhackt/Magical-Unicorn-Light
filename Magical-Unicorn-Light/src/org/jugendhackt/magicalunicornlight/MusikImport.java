@@ -21,9 +21,16 @@ public class MusikImport {
 	    int count;
 	    while((count = input.read(buffer, 0, 1024)) != -1) {
 	        line.write(buffer, 0, count);
-	        int e = buffer[0] & 0xFF;
-	        int f = buffer[1];
-	        //System.out.println("" + (e + (256 * f)));
+	        
+	        
+	        for(int i = 0;i < 512;i++) {
+	        	int ii = i * 2;
+	        	int e = buffer[i] & 0xFF;
+		        int f = buffer[ii];
+	        	int gesamt = e + (256 * f);
+	        	System.out.println("" + (e + (256 * f)));
+	        }
+	        
 	    }
 	    line.drain();
 	    line.stop();
@@ -35,5 +42,6 @@ public class MusikImport {
 	public static void main(String[] args) {
 		musikImport();
 		System.out.println("Ihr Veggie-Burger ist fertig!");
+		System.out.println("Jetzt kommt die Cola... (und eine menge schlechte Wortwitze und zitate)");
 	}
 }
