@@ -3,6 +3,7 @@ package org.jugendhackt.magicalunicornlight;
 import org.jugendhackt.magicalunicornlight.audio.input.IAudioReader;
 import org.jugendhackt.magicalunicornlight.audio.input.MusikImport;
 import org.jugendhackt.magicalunicornlight.audio.processor.HeightFilter;
+import org.jugendhackt.magicalunicornlight.audio.processor.MaxFilter;
 import org.jugendhackt.magicalunicornlight.audio.visualiser.SimpleScreenVisualiser;
 
 public class Main {
@@ -18,9 +19,9 @@ public class Main {
 	}
 	
 	private static void setUpReader (IAudioReader reader) {
-		HeightFilter hf = new HeightFilter ();
-		hf.addVisualiser(new SimpleScreenVisualiser());
-		reader.addCallback(hf);
+		MaxFilter mf = new MaxFilter ();
+		mf.addVisualiser(new SimpleScreenVisualiser());
+		reader.addCallback(mf);
 	} 
 	
 //	public static void test () {

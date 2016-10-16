@@ -117,6 +117,6 @@ public class MusikImport {
 	}
 	
 	public static void main(String[] args) {
-		musikImport();
+		//musikImport();
 	}
 }
