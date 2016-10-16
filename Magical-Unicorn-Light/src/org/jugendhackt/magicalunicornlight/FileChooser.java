@@ -3,7 +3,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileChooser {
-    public static String popupFileLocation(){
+    public String popupFileLocation(){
     	 // JFileChooser-Objekt erstellen
         JFileChooser chooser = new JFileChooser();
         
