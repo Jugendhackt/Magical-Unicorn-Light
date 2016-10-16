@@ -13,7 +13,13 @@ public class FileChooser {
         
         // Dialog zum Oeffnen von Dateien anzeigen
         chooser.showOpenDialog(null);
-        String file_path = chooser.getSelectedFile().getAbsolutePath();
-        return file_path;
+        if (chooser.getSelectedFile() != null) {
+            String file_path = chooser.getSelectedFile().getAbsolutePath();
+            return file_path;
+        } else {
+        	//TODO: Return Null and catch in audio
+        	System.exit(0);
+        	return null;
+        }
     }
 }
