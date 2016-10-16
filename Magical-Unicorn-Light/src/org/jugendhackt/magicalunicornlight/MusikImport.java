@@ -8,19 +8,24 @@ import javax.sound.sampled.SourceDataLine;
 public class MusikImport {
 
 	int k = 0;
-	static int taktfrequenz = 0;
+	static int test = 0;
+	static int taktfrequenz = 150;
+	static double takt = 0;
+	static double a = System.currentTimeMillis();
+	static double b = 0;
 	static double[] mainvolume = new double[512];
 	static double[] maxvolume = new double[512];
 	static double[] lowHighDifferenz = new double[512];
+	static Complex[] volume = new Complex[512];
 	static void musikImport() {
 
 		FileChooser chooser = new FileChooser();
 		String filePath = chooser.popupFileLocation();
-		try {
+		/*try {
 
 			AudioInputStream input = AudioSystem.getAudioInputStream(new File(filePath));
 
-			System.out.println(input.getFormat().toString());
+			//System.out.println(input.getFormat().toString());
 			SourceDataLine line = AudioSystem.getSourceDataLine(input.getFormat());
 			line.open(input.getFormat());
 			line.start();
@@ -41,7 +46,7 @@ public class MusikImport {
 					komplex[i] = new Complex((double) gesamt,0);
 				}
 				Complex[] ergebnis = FFT.fft(komplex);
-				System.out.println(ergebnis[0] + "/" + ergebnis[1] + "/" + ergebnis[2] + "/" + ergebnis[3] + "/" + ergebnis[4] + "/");
+				//System.out.println(ergebnis[0] + "/" + ergebnis[1] + "/" + ergebnis[2] + "/" + ergebnis[3] + "/" + ergebnis[4] + "/");
 
 			}
 			line.drain();
@@ -49,7 +54,7 @@ public class MusikImport {
 			line.close();
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 //	FileChooser chooser = new FileChooser();
 //	String filePath = chooser.popupFileLocation();
@@ -57,7 +62,7 @@ public class MusikImport {
 		
 	    AudioInputStream input = AudioSystem.getAudioInputStream(new File(filePath));
 		
-		System.out.println(input.getFormat().toString());
+		//System.out.println(input.getFormat().toString());
 	    SourceDataLine line = AudioSystem.getSourceDataLine(input.getFormat());
 	    line.open(input.getFormat());
 	    line.start();
@@ -79,7 +84,8 @@ public class MusikImport {
 	        }
     	        Complex[] ergebnis = FFT.fft(komplex);
     	        //System.out.println(ergebnis[0].abs() + "/" + ergebnis[1].abs() + "/" + ergebnis[2].abs() + "/" + ergebnis[3].abs() + "/" + ergebnis[4].abs() + "/");
-    	        taktFinder(ergebnis);
+    	        frequenzFinder(ergebnis);
+    	        taktFinder();
 	    }
 	    line.drain();
 	    line.stop();
@@ -89,11 +95,11 @@ public class MusikImport {
 	}
 	}
 	
-	static void taktFinder(Complex[] volume) {
-	
+	static void frequenzFinder(Complex[] volume) {
+//		System.out.println("01");
 		for(int i = 0;i < 512;i++){
-			if(i == 512){
-				System.out.println("Volume: " + volume[i].abs());	
+			if(i == 0){
+				//System.out.println("Volume: " + volume[i].abs());	
 			}
 			
 			
@@ -105,17 +111,38 @@ public class MusikImport {
 			if(lowHighDifferenz[i] > lowHighDifferenz[taktfrequenz]){
 				taktfrequenz = i;
 			}
-			if(i == 512){
-				System.out.println("MainVColume: " + mainvolume[i]);
-				System.out.println("MaxVolume: " + maxvolume[i]);
-				System.out.println("Low-High-Differenz: " + lowHighDifferenz[i]);
+			//System.out.println("Taktfrequenz: " + taktfrequenz);
+			if(i == 0){
+				//System.out.println("MainVColume: " + mainvolume[i]);
+				//System.out.println("MaxVolume: " + maxvolume[i]);
+				//System.out.println("Low-High-Differenz: " + lowHighDifferenz[i]);
 			}
-			System.out.println("Taktfrequenz: " + taktfrequenz);
+			
+	 
+			
+		}
+		
+		MusikImport.volume = volume;
+		
+	}
 	
+	static void taktFinder(){
+//		System.out.println("02");
+//		System.out.println(volume[taktfrequenz].abs());
+		
+		if(volume[taktfrequenz].abs() > (3 * mainvolume[taktfrequenz] )){
+			System.out.println("Bumm!");
+			System.out.println("pause");
+			a = System.currentTimeMillis();
+			if(test == 1){
+				b = System.currentTimeMillis();
+				takt = b - a;
+				System.out.println(takt);
+			}
+		test = 1;
 			
 		}
 	}
-	
 	public static void main(String[] args) {
 		musikImport();
 	}
