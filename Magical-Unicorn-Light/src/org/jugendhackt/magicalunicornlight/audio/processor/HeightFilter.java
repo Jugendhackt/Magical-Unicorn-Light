@@ -5,15 +5,22 @@ public class HeightFilter extends BaseFilter{
 	@Override
 	public void process(int[] data) {
 		double factor = 0;
+		
 		for (int in : data) {
+//			System.out.println(calcFactor(in));
+//			try {
+//				Thread.sleep(10);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			factor += calcFactor(in);
 		}
 		
-		factor = factor/data.length;
+		factor = factor / data.length;
 		
-		System.out.println(factor);
+//		System.out.println(factor);
 		
-		this.invokeCallbacks(data, factor, factor, factor);
+		super.invokeCallbacks(data, factor, factor, factor);
 	}
 	
 	public double calcFactor (int input) {
