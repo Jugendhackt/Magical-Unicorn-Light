@@ -2,8 +2,8 @@ package org.jugendhackt.magicalunicornlight;
 
 import org.jugendhackt.magicalunicornlight.audio.input.IAudioReader;
 import org.jugendhackt.magicalunicornlight.audio.input.MusikImport;
-import org.jugendhackt.magicalunicornlight.audio.processor.HeightFilter;
-import org.jugendhackt.magicalunicornlight.audio.visualiser.SimpleScreenVisualiser;
+import org.jugendhackt.magicalunicornlight.audio.processor.*;
+import org.jugendhackt.magicalunicornlight.audio.visualiser.ColorChangingScreenVisualiser;
 
 public class Main {
 
@@ -18,8 +18,8 @@ public class Main {
 	}
 	
 	private static void setUpReader (IAudioReader reader) {
-		HeightFilter hf = new HeightFilter ();
-		hf.addVisualiser(new SimpleScreenVisualiser());
+		TaktFinder hf = new TaktFinder ();
+		hf.addVisualiser(new ColorChangingScreenVisualiser());
 		reader.addCallback(hf);
 	}
 }
