@@ -63,6 +63,7 @@ public class MusikImport implements IAudioReader {
 				}
 				
 				for (IAudioProcessor proc : callbacks) {
+					proc.setBitDepth(input.getFormat().getSampleSizeInBits());
 					proc.process(samples);
 				}
 				
