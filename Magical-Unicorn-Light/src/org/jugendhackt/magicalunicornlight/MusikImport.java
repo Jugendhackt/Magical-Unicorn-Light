@@ -96,14 +96,20 @@ public class MusikImport {
 		if(volume[taktfrequenz].abs() > (3 * mainvolume[taktfrequenz] )){
 			System.out.println("Bumm!");
 			System.out.println("pause");
-			a = System.currentTimeMillis();
+			
 			if(test == 1){
 				b = System.currentTimeMillis();
 				takt = b - a;
 				System.out.println(takt);
 			}
+<<<<<<< HEAD
 			test = 1;
 
+=======
+			a = System.currentTimeMillis();
+		test = 1;
+			
+>>>>>>> branch 'master' of https://github.com/Jugendhackt/Magical-Unicorn-Light.git
 		}
 	}
 	public static void main(String[] args) {
