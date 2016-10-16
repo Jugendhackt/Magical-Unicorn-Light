@@ -14,10 +14,11 @@ public class MaxFilter extends BaseFilter{
 		
 		
 		double factor = rms/this.getMax();
-		System.out.println(getMax());
+		factor= factor*10 -5;
+		System.out.println(factor);
 		
 		
-		this.invokeCallbacks(data, factor, 0, 0);
+		super.invokeCallbacks(data, factor, 0, 0);
 		
 		
 	
