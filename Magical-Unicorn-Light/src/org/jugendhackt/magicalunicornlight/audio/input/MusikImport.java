@@ -6,8 +6,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.SourceDataLine;
 
-import org.jugendhackt.magicalunicornlight.Complex;
-import org.jugendhackt.magicalunicornlight.FFT;
 import org.jugendhackt.magicalunicornlight.FileChooser;
 import org.jugendhackt.magicalunicornlight.audio.processor.IAudioProcessor;
 
