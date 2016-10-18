@@ -7,6 +7,8 @@ public class SimpleScreenVisualiser implements IVisualiser{
 
 	MagicSender sender;
 	
+	public String address;
+	
 	@Override
 	public void render(double r, double g, double b) {
 		MagicFrame frame = new MagicFrame ();
@@ -19,7 +21,7 @@ public class SimpleScreenVisualiser implements IVisualiser{
 		sender = new MagicSender();
 		sender.openPort();
 		sender.setPort(1337);
-		sender.setAddress("127.0.0.1");
+		sender.setAddress(address);
 	}
 
 	@Override

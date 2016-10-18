@@ -19,6 +19,9 @@ public class TaktFinder extends BaseFilter {
 	public double red = 1.0;
 	public double green = 1.0;
 	public double blue = 1.0;
+	
+	public double dVolume = 3;
+	
 	@Override
 	public void process (int[] data) {
 		Complex[] komplex = new Complex[data.length];
@@ -63,7 +66,7 @@ public class TaktFinder extends BaseFilter {
 		//		System.out.println("02");
 		//		System.out.println(volume[taktfrequenz].abs());
 
-		if(volume[taktfrequenz].abs() > (3 * mainvolume[taktfrequenz] )){
+		if(volume[taktfrequenz].abs() > (dVolume * mainvolume[taktfrequenz] )){
 			super.invokeCallbacks(data, red, green, blue);
 			a = System.currentTimeMillis();
 			

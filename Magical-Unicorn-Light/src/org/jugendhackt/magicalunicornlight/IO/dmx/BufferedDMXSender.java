@@ -3,6 +3,8 @@ package org.jugendhackt.magicalunicornlight.IO.dmx;
 import org.jugendhackt.magicalunicornlight.frames.DMXFrame;
 import org.jugendhackt.magicalunicornlight.frames.IFrame;
 
+//FIXME: Add Static Buffer, so that there are no send conflicts !!!
+
 public class BufferedDMXSender extends DMXSender{
 	/**
 	 * Data buffer for repeated sending by senderThread
@@ -17,7 +19,6 @@ public class BufferedDMXSender extends DMXSender{
 	 * specifies ms between sending data
 	 */
 	private int sendTime;
-	
 	
 	/**
 	 * Constructor.
