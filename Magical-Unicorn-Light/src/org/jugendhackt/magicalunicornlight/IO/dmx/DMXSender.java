@@ -43,6 +43,9 @@ public class DMXSender extends BaseNetworkSender{
 		super.setPacketSize(512);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.IO.BaseNetworkSender#sendFrame(org.jugendhackt.magicalunicornlight.frames.IFrame)
+	 */
 	@Override
 	public void sendFrame(IFrame data) {
 		super.sendFrame(prepareFrame(data));

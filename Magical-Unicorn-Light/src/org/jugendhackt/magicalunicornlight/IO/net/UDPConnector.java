@@ -15,34 +15,70 @@ public class UDPConnector {
 	private volatile boolean isRunning;
 	private Thread serverThread;
 	
+	/**
+	 * Default Constructor
+	 * 
+	 * Default Packet Size: 512 Bytes
+	 * 
+	 */
 	public UDPConnector() {
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * Default Packet Size: 512 Bytes
+	 * 
+	 * @param port - Port to listen on
+	 */
 	public UDPConnector(int port) {
 		this.port = port;
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param port - Port to listen on
+	 * @param packetSize - Packet size to expect (Default: 512)
+	 */
 	public UDPConnector(int port, int packetSize) {
 		this.port = port;
 		this.packetSize = packetSize;
 	}
 
+	/**
+	 * @return Port the server is listening on
+	 */
 	public int getPort() {
 		return port;
 	}
 
+	/**
+	 * @param port - Sets Port to listen on
+	 */
 	public void setPort(int port) {
 		this.port = port;
 	}
 
+	/**
+	 * @return Current PacketSize
+	 */
 	public int getPacketSize() {
 		return packetSize;
 	}
 
+	/**
+	 * Sets the current packetSize
+	 * 
+	 * @param packetSize - PacketSize in bytes
+	 */
 	public void setPacketSize(int packetSize) {
 		this.packetSize = packetSize;
 	}
 
+	/**
+	 * @return Current IP Address of this Server
+	 */
 	public InetAddress getIP () {
 		try {
 			return InetAddress.getByName("127.0.0.1");
@@ -52,6 +88,9 @@ public class UDPConnector {
 		}
 	}
 
+	/**
+	 * Starts the Server
+	 */
 	public void start () {
 		try {
 			if (port == -1) {
@@ -76,6 +115,9 @@ public class UDPConnector {
 		
 	}
 	
+	/**
+	 * Stops the Server
+	 */
 	public void stop () {
 		isRunning = false;
 		if (serverThread != null && serverThread.isAlive()) {
@@ -84,6 +126,9 @@ public class UDPConnector {
 		System.out.println("Server Stopped");
 	}
 	
+	/**
+	 * Restarts the Server
+	 */
 	public void restart () {
 		this.stop();
 		this.start();
@@ -101,7 +146,7 @@ public class UDPConnector {
             try {
 				serverSocket.receive(receivePacket);
 				System.out.println("Data recieved from " + receivePacket.getAddress().toString());
-				onPacketReceived (receivePacket);
+				onPacketRecieved (receivePacket);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -110,10 +155,20 @@ public class UDPConnector {
 	
 
 	
-	public void onPacketReceived (DatagramPacket packet) {
+	/**
+	 * Called when Data is recieved
+	 * 
+	 * @param packet - Recieved data
+	 */
+	public void onPacketRecieved (DatagramPacket packet) {
 
 	}
 
+	/**
+	 * Sends DatagramPacket over serverSocket
+	 * 
+	 * @param response - Data to send
+	 */
 	public void respond (DatagramPacket response) {
 		try {
 			serverSocket.send(response);

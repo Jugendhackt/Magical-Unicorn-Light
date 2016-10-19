@@ -132,7 +132,6 @@ public class BaseNetworkSender implements ISender{
 			DatagramPacket packet = new DatagramPacket(data.getData(), data.getData().length, ip, port);
 			client.respond(packet);
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

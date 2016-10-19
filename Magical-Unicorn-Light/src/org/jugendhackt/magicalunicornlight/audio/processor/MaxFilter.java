@@ -3,6 +3,9 @@ package org.jugendhackt.magicalunicornlight.audio.processor;
 
 public class MaxFilter extends BaseFilter{
 
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.processor.BaseFilter#process(int[])
+	 */
 	@Override
 	public void process(int[] data) {
 		double sum = 0;
@@ -24,9 +27,8 @@ public class MaxFilter extends BaseFilter{
 	
 	}
 	
-	public double calc (double sum, int input) {
+	private double calc (double sum, int input) {
 		return sum += Math.abs(input)*Math.abs(input); 
-
 	}
 
 }

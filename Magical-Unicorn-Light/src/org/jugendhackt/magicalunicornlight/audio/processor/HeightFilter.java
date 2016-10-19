@@ -2,6 +2,9 @@ package org.jugendhackt.magicalunicornlight.audio.processor;
 
 public class HeightFilter extends BaseFilter{
 
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.processor.BaseFilter#process(int[])
+	 */
 	@Override
 	public void process(int[] data) {
 		double factor = 0;
@@ -23,7 +26,7 @@ public class HeightFilter extends BaseFilter{
 		super.invokeCallbacks(data, factor, factor, factor);
 	}
 	
-	public double calcFactor (int input) {
+	private double calcFactor (int input) {
 		return Math.abs((input + this.getMin())/ (double)this.getMax()); 
 	}
 

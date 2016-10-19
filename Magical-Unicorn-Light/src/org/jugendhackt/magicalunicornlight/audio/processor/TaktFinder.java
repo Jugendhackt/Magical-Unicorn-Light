@@ -22,6 +22,9 @@ public class TaktFinder extends BaseFilter {
 	
 	public double dVolume = 3;
 	
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.processor.BaseFilter#process(int[])
+	 */
 	@Override
 	public void process (int[] data) {
 		Complex[] komplex = new Complex[data.length];

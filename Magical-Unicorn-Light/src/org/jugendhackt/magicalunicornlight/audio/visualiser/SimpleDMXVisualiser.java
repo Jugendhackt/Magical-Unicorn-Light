@@ -5,10 +5,16 @@ import org.jugendhackt.magicalunicornlight.IO.dmx.DMXSender;
 import org.jugendhackt.magicalunicornlight.frames.DMXFrame;
 
 public class SimpleDMXVisualiser implements IVisualiser {
-	DMXSender sender;
+	protected DMXSender sender;
 	
+	/**
+	 * BaseChannel of the DMX Device
+	 */
 	public int baseChannel;
 	
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.visualiser.IVisualiser#render(double, double, double)
+	 */
 	@Override
 	public void render(double r, double g, double b) {
 		DMXFrame frame = new DMXFrame ();
@@ -20,6 +26,9 @@ public class SimpleDMXVisualiser implements IVisualiser {
 		sender.sendFrame(frame);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.visualiser.IVisualiser#initialise()
+	 */
 	@Override
 	public void initialise() {
 		sender = new BufferedDMXSender();
@@ -28,6 +37,9 @@ public class SimpleDMXVisualiser implements IVisualiser {
 		sender.setAddress("127.0.0.1");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.visualiser.IVisualiser#destroy()
+	 */
 	@Override
 	public void destroy() {
 		sender.closePort();

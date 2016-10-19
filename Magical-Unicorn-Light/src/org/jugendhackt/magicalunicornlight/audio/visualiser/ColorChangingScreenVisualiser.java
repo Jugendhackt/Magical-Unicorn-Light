@@ -8,17 +8,26 @@ public class ColorChangingScreenVisualiser extends SimpleScreenVisualiser{
 
 	Random rand;
 	
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.visualiser.SimpleScreenVisualiser#initialise()
+	 */
 	@Override
 	public void initialise() {
 		super.initialise();
 		rand = new Random();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.visualiser.SimpleScreenVisualiser#destroy()
+	 */
 	@Override
 	public void destroy() {
 		super.destroy();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.visualiser.SimpleScreenVisualiser#render(double, double, double)
+	 */
 	@Override
 	public void render(double r, double g, double b) {
 		MagicFrame frame = new MagicFrame ();

@@ -17,21 +17,33 @@ public class MusikImport implements IAudioReader {
 		callbacks = new ArrayList<>();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.input.IAudioReader#addCallback(org.jugendhackt.magicalunicornlight.audio.processor.IAudioProcessor)
+	 */
 	@Override
 	public void addCallback (IAudioProcessor proccessor) {
 		this.callbacks.add(proccessor);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.input.IAudioReader#removeCallback(org.jugendhackt.magicalunicornlight.audio.processor.IAudioProcessor)
+	 */
 	@Override
 	public void removeCallback (IAudioProcessor proccessor) {
 		this.callbacks.remove(proccessor);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.input.IAudioReader#clearCallbacks()
+	 */
 	@Override
 	public void clearCallbacks () {
 		this.callbacks.clear();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jugendhackt.magicalunicornlight.audio.input.IAudioReader#musikImport()
+	 */
 	@Override
 	public void musikImport() {
 
